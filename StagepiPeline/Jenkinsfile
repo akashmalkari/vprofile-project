@@ -1,3 +1,7 @@
+def COLOR_MAP = [
+    'SUCCESS': 'good', 
+    'FAILURE': 'danger',
+]
 pipeline {
     agent any
     tools {
@@ -17,7 +21,7 @@ pipeline {
         NEXUS_LOGIN = 'nexuslogin'
         SONARSERVER = 'sonarserver'
         SONARSCANNER = 'sonarscanner'
-        registryCredential = 'ecr:us-west-1:awscreds'
+        registryCredential = 'ecr:ap-south-1:awscreds'
         appRegistry = '205930621844.dkr.ecr.ap-south-1.amazonaws.com/vprofileappimg'
         vprofileRegistry = "https://205930621844.dkr.ecr.ap-south-1.amazonaws.com"
     }
@@ -99,7 +103,7 @@ pipeline {
         stage('Build App Image') {
             steps {
                 script {
-                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Docker-files/app/multistage/Dockerfile/")
+                    dockerImage = docker.build( appRegistry + ":$BUILD_NUMBER", "./Vprofile-project/Docker-files/app/multistage/")
                 }
             }
         }
